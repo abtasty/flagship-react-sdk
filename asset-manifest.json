@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/flagship-react-sdk/static/css/main.03c78fc5.chunk.css",
-    "main.js": "/flagship-react-sdk/static/js/main.d234b33a.chunk.js",
-    "main.js.map": "/flagship-react-sdk/static/js/main.d234b33a.chunk.js.map",
-    "runtime-main.js": "/flagship-react-sdk/static/js/runtime-main.b0c93c95.js",
-    "runtime-main.js.map": "/flagship-react-sdk/static/js/runtime-main.b0c93c95.js.map",
-    "static/css/2.131ee16b.chunk.css": "/flagship-react-sdk/static/css/2.131ee16b.chunk.css",
-    "static/js/2.903cec8f.chunk.js": "/flagship-react-sdk/static/js/2.903cec8f.chunk.js",
-    "static/js/2.903cec8f.chunk.js.map": "/flagship-react-sdk/static/js/2.903cec8f.chunk.js.map",
-    "index.html": "/flagship-react-sdk/index.html",
-    "precache-manifest.cfd93b7bc56104212b12b01b1818c418.js": "/flagship-react-sdk/precache-manifest.cfd93b7bc56104212b12b01b1818c418.js",
-    "service-worker.js": "/flagship-react-sdk/service-worker.js",
-    "static/css/2.131ee16b.chunk.css.map": "/flagship-react-sdk/static/css/2.131ee16b.chunk.css.map",
-    "static/css/main.03c78fc5.chunk.css.map": "/flagship-react-sdk/static/css/main.03c78fc5.chunk.css.map",
-    "static/media/Flagship-horizontal-product-white.png": "/flagship-react-sdk/static/media/Flagship-horizontal-product-white.6e8b90f3.png"
+    "main.css": "/flagship-react-sdk-dev-demo/static/css/main.03c78fc5.chunk.css",
+    "main.js": "/flagship-react-sdk-dev-demo/static/js/main.cf10b07d.chunk.js",
+    "main.js.map": "/flagship-react-sdk-dev-demo/static/js/main.cf10b07d.chunk.js.map",
+    "runtime-main.js": "/flagship-react-sdk-dev-demo/static/js/runtime-main.5229c1d2.js",
+    "runtime-main.js.map": "/flagship-react-sdk-dev-demo/static/js/runtime-main.5229c1d2.js.map",
+    "static/css/2.131ee16b.chunk.css": "/flagship-react-sdk-dev-demo/static/css/2.131ee16b.chunk.css",
+    "static/js/2.903cec8f.chunk.js": "/flagship-react-sdk-dev-demo/static/js/2.903cec8f.chunk.js",
+    "static/js/2.903cec8f.chunk.js.map": "/flagship-react-sdk-dev-demo/static/js/2.903cec8f.chunk.js.map",
+    "index.html": "/flagship-react-sdk-dev-demo/index.html",
+    "precache-manifest.3c7d0f9179615770f409b7ce21967082.js": "/flagship-react-sdk-dev-demo/precache-manifest.3c7d0f9179615770f409b7ce21967082.js",
+    "service-worker.js": "/flagship-react-sdk-dev-demo/service-worker.js",
+    "static/css/2.131ee16b.chunk.css.map": "/flagship-react-sdk-dev-demo/static/css/2.131ee16b.chunk.css.map",
+    "static/css/main.03c78fc5.chunk.css.map": "/flagship-react-sdk-dev-demo/static/css/main.03c78fc5.chunk.css.map",
+    "static/media/Flagship-horizontal-product-white.png": "/flagship-react-sdk-dev-demo/static/media/Flagship-horizontal-product-white.6e8b90f3.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.b0c93c95.js",
+    "static/js/runtime-main.5229c1d2.js",
     "static/css/2.131ee16b.chunk.css",
     "static/js/2.903cec8f.chunk.js",
     "static/css/main.03c78fc5.chunk.css",
-    "static/js/main.d234b33a.chunk.js"
+    "static/js/main.cf10b07d.chunk.js"
   ]
 }
