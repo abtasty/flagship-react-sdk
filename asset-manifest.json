@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/flagship-react-sdk-dev-demo/static/css/main.03c78fc5.chunk.css",
-    "main.js": "/flagship-react-sdk-dev-demo/static/js/main.7c1f74fb.chunk.js",
-    "main.js.map": "/flagship-react-sdk-dev-demo/static/js/main.7c1f74fb.chunk.js.map",
-    "runtime-main.js": "/flagship-react-sdk-dev-demo/static/js/runtime-main.5229c1d2.js",
-    "runtime-main.js.map": "/flagship-react-sdk-dev-demo/static/js/runtime-main.5229c1d2.js.map",
+    "main.js": "/flagship-react-sdk-dev-demo/static/js/main.e76b3b39.chunk.js",
+    "main.js.map": "/flagship-react-sdk-dev-demo/static/js/main.e76b3b39.chunk.js.map",
+    "runtime-main.js": "/flagship-react-sdk-dev-demo/static/js/runtime-main.4ebe42b0.js",
+    "runtime-main.js.map": "/flagship-react-sdk-dev-demo/static/js/runtime-main.4ebe42b0.js.map",
     "static/css/2.131ee16b.chunk.css": "/flagship-react-sdk-dev-demo/static/css/2.131ee16b.chunk.css",
-    "static/js/2.ab7aeb3c.chunk.js": "/flagship-react-sdk-dev-demo/static/js/2.ab7aeb3c.chunk.js",
-    "static/js/2.ab7aeb3c.chunk.js.map": "/flagship-react-sdk-dev-demo/static/js/2.ab7aeb3c.chunk.js.map",
+    "static/js/2.6840f679.chunk.js": "/flagship-react-sdk-dev-demo/static/js/2.6840f679.chunk.js",
+    "static/js/2.6840f679.chunk.js.map": "/flagship-react-sdk-dev-demo/static/js/2.6840f679.chunk.js.map",
     "index.html": "/flagship-react-sdk-dev-demo/index.html",
-    "precache-manifest.b43e19819ce2db43c69396054883aa60.js": "/flagship-react-sdk-dev-demo/precache-manifest.b43e19819ce2db43c69396054883aa60.js",
+    "precache-manifest.5b8c4860f93d9b03c4428fd5b025f021.js": "/flagship-react-sdk-dev-demo/precache-manifest.5b8c4860f93d9b03c4428fd5b025f021.js",
     "service-worker.js": "/flagship-react-sdk-dev-demo/service-worker.js",
     "static/css/2.131ee16b.chunk.css.map": "/flagship-react-sdk-dev-demo/static/css/2.131ee16b.chunk.css.map",
     "static/css/main.03c78fc5.chunk.css.map": "/flagship-react-sdk-dev-demo/static/css/main.03c78fc5.chunk.css.map",
     "static/media/Flagship-horizontal-product-white.png": "/flagship-react-sdk-dev-demo/static/media/Flagship-horizontal-product-white.6e8b90f3.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.5229c1d2.js",
+    "static/js/runtime-main.4ebe42b0.js",
     "static/css/2.131ee16b.chunk.css",
-    "static/js/2.ab7aeb3c.chunk.js",
+    "static/js/2.6840f679.chunk.js",
     "static/css/main.03c78fc5.chunk.css",
-    "static/js/main.7c1f74fb.chunk.js"
+    "static/js/main.e76b3b39.chunk.js"
   ]
 }
