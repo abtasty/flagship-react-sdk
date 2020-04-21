@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/flagship-react-sdk/static/css/main.03c78fc5.chunk.css",
-    "main.js": "/flagship-react-sdk/static/js/main.62aff672.chunk.js",
-    "main.js.map": "/flagship-react-sdk/static/js/main.62aff672.chunk.js.map",
+    "main.js": "/flagship-react-sdk/static/js/main.662f1b17.chunk.js",
+    "main.js.map": "/flagship-react-sdk/static/js/main.662f1b17.chunk.js.map",
     "runtime-main.js": "/flagship-react-sdk/static/js/runtime-main.f58ac21c.js",
     "runtime-main.js.map": "/flagship-react-sdk/static/js/runtime-main.f58ac21c.js.map",
     "static/css/2.de424728.chunk.css": "/flagship-react-sdk/static/css/2.de424728.chunk.css",
     "static/js/2.b9385250.chunk.js": "/flagship-react-sdk/static/js/2.b9385250.chunk.js",
     "static/js/2.b9385250.chunk.js.map": "/flagship-react-sdk/static/js/2.b9385250.chunk.js.map",
     "index.html": "/flagship-react-sdk/index.html",
-    "precache-manifest.ce0a686d6287eb6da9fe8ef176024230.js": "/flagship-react-sdk/precache-manifest.ce0a686d6287eb6da9fe8ef176024230.js",
+    "precache-manifest.c820993aacbcc34bd45fce2d34d55886.js": "/flagship-react-sdk/precache-manifest.c820993aacbcc34bd45fce2d34d55886.js",
     "service-worker.js": "/flagship-react-sdk/service-worker.js",
     "static/css/2.de424728.chunk.css.map": "/flagship-react-sdk/static/css/2.de424728.chunk.css.map",
     "static/css/main.03c78fc5.chunk.css.map": "/flagship-react-sdk/static/css/main.03c78fc5.chunk.css.map",
@@ -20,6 +20,6 @@
     "static/css/2.de424728.chunk.css",
     "static/js/2.b9385250.chunk.js",
     "static/css/main.03c78fc5.chunk.css",
-    "static/js/main.62aff672.chunk.js"
+    "static/js/main.662f1b17.chunk.js"
   ]
 }
