@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/flagship-react-sdk/static/css/main.11bb1359.chunk.css",
-    "main.js": "/flagship-react-sdk/static/js/main.01b86f01.chunk.js",
-    "main.js.map": "/flagship-react-sdk/static/js/main.01b86f01.chunk.js.map",
+    "main.js": "/flagship-react-sdk/static/js/main.ca466e1c.chunk.js",
+    "main.js.map": "/flagship-react-sdk/static/js/main.ca466e1c.chunk.js.map",
     "runtime-main.js": "/flagship-react-sdk/static/js/runtime-main.f58ac21c.js",
     "runtime-main.js.map": "/flagship-react-sdk/static/js/runtime-main.f58ac21c.js.map",
     "static/css/2.de424728.chunk.css": "/flagship-react-sdk/static/css/2.de424728.chunk.css",
-    "static/js/2.a942d89c.chunk.js": "/flagship-react-sdk/static/js/2.a942d89c.chunk.js",
-    "static/js/2.a942d89c.chunk.js.map": "/flagship-react-sdk/static/js/2.a942d89c.chunk.js.map",
+    "static/js/2.e1f7efac.chunk.js": "/flagship-react-sdk/static/js/2.e1f7efac.chunk.js",
+    "static/js/2.e1f7efac.chunk.js.map": "/flagship-react-sdk/static/js/2.e1f7efac.chunk.js.map",
     "index.html": "/flagship-react-sdk/index.html",
-    "precache-manifest.e476146874753e8256bf3641e5f11c7e.js": "/flagship-react-sdk/precache-manifest.e476146874753e8256bf3641e5f11c7e.js",
+    "precache-manifest.eca143990e20ada96b91492ce65a4126.js": "/flagship-react-sdk/precache-manifest.eca143990e20ada96b91492ce65a4126.js",
     "service-worker.js": "/flagship-react-sdk/service-worker.js",
     "static/css/2.de424728.chunk.css.map": "/flagship-react-sdk/static/css/2.de424728.chunk.css.map",
     "static/css/main.11bb1359.chunk.css.map": "/flagship-react-sdk/static/css/main.11bb1359.chunk.css.map",
@@ -18,8 +18,8 @@
   "entrypoints": [
     "static/js/runtime-main.f58ac21c.js",
     "static/css/2.de424728.chunk.css",
-    "static/js/2.a942d89c.chunk.js",
+    "static/js/2.e1f7efac.chunk.js",
     "static/css/main.11bb1359.chunk.css",
-    "static/js/main.01b86f01.chunk.js"
+    "static/js/main.ca466e1c.chunk.js"
   ]
 }
