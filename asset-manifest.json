@@ -1,25 +1,26 @@
 {
   "files": {
-    "main.css": "/flagship-react-sdk/static/css/main.11bb1359.chunk.css",
-    "main.js": "/flagship-react-sdk/static/js/main.9b45d9d0.chunk.js",
-    "main.js.map": "/flagship-react-sdk/static/js/main.9b45d9d0.chunk.js.map",
+    "main.css": "/flagship-react-sdk/static/css/main.7ee7d1f0.chunk.css",
+    "main.js": "/flagship-react-sdk/static/js/main.bcedcafb.chunk.js",
+    "main.js.map": "/flagship-react-sdk/static/js/main.bcedcafb.chunk.js.map",
     "runtime-main.js": "/flagship-react-sdk/static/js/runtime-main.f58ac21c.js",
     "runtime-main.js.map": "/flagship-react-sdk/static/js/runtime-main.f58ac21c.js.map",
-    "static/css/2.de424728.chunk.css": "/flagship-react-sdk/static/css/2.de424728.chunk.css",
-    "static/js/2.c6f82e6b.chunk.js": "/flagship-react-sdk/static/js/2.c6f82e6b.chunk.js",
-    "static/js/2.c6f82e6b.chunk.js.map": "/flagship-react-sdk/static/js/2.c6f82e6b.chunk.js.map",
+    "static/css/2.fd12d1d7.chunk.css": "/flagship-react-sdk/static/css/2.fd12d1d7.chunk.css",
+    "static/js/2.887103e2.chunk.js": "/flagship-react-sdk/static/js/2.887103e2.chunk.js",
+    "static/js/2.887103e2.chunk.js.map": "/flagship-react-sdk/static/js/2.887103e2.chunk.js.map",
     "index.html": "/flagship-react-sdk/index.html",
-    "precache-manifest.8c1988488b4e77c5ad2dd70cd65363fd.js": "/flagship-react-sdk/precache-manifest.8c1988488b4e77c5ad2dd70cd65363fd.js",
+    "precache-manifest.23473c6cf71a6f847622a5f03429e782.js": "/flagship-react-sdk/precache-manifest.23473c6cf71a6f847622a5f03429e782.js",
     "service-worker.js": "/flagship-react-sdk/service-worker.js",
-    "static/css/2.de424728.chunk.css.map": "/flagship-react-sdk/static/css/2.de424728.chunk.css.map",
-    "static/css/main.11bb1359.chunk.css.map": "/flagship-react-sdk/static/css/main.11bb1359.chunk.css.map",
-    "static/media/Flagship-horizontal-product-white.png": "/flagship-react-sdk/static/media/Flagship-horizontal-product-white.6e8b90f3.png"
+    "static/css/2.fd12d1d7.chunk.css.map": "/flagship-react-sdk/static/css/2.fd12d1d7.chunk.css.map",
+    "static/css/main.7ee7d1f0.chunk.css.map": "/flagship-react-sdk/static/css/main.7ee7d1f0.chunk.css.map",
+    "static/media/Flagship-horizontal-product-white.png": "/flagship-react-sdk/static/media/Flagship-horizontal-product-white.6e8b90f3.png",
+    "static/media/notifications.css": "/flagship-react-sdk/static/media/notification.c0d3c94c.eot"
   },
   "entrypoints": [
     "static/js/runtime-main.f58ac21c.js",
-    "static/css/2.de424728.chunk.css",
-    "static/js/2.c6f82e6b.chunk.js",
-    "static/css/main.11bb1359.chunk.css",
-    "static/js/main.9b45d9d0.chunk.js"
+    "static/css/2.fd12d1d7.chunk.css",
+    "static/js/2.887103e2.chunk.js",
+    "static/css/main.7ee7d1f0.chunk.css",
+    "static/js/main.bcedcafb.chunk.js"
   ]
 }
