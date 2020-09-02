@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "7d30457bf221b3c0c14659549b683e11",
+    "revision": "478907db63daae837d55b9fc885d18ef",
     "url": "/flagship-react-sdk/index.html"
   },
   {
