@@ -55,6 +55,35 @@ describe('fsContext provider', () => {
         expect(container.querySelector('div')?.innerHTML).toEqual('Hello');
         expect(isReady).toEqual(true);
     });
+    test('it should NOT display a loading component if "fetchNow=false" + "loadingComponent" is defined', async (done) => {
+        const { container } = render(
+            <FlagshipProvider
+                envId={providerProps.envId}
+                {...providerProps.config}
+                fetchNow={false}
+                visitorData={providerProps.visitorData}
+                onInitDone={() => {
+                    isReady = true;
+                }}
+                loadingComponent={<div>Loading SDK</div>}
+            >
+                <div>Hello</div>
+            </FlagshipProvider>
+        );
+        expect(container.querySelector('div')?.innerHTML).not.toEqual('Loading SDK');
+
+        await waitFor(
+            () => {
+                expect(isReady).toEqual(true);
+            },
+            {
+                timeout: 6000
+            }
+        );
+        expect(container.querySelector('div')?.innerHTML).toEqual('Hello');
+        expect(isReady).toEqual(true);
+        done();
+    });
     test('it should working callbacks props ', async () => {
         const isCalled: {
             onSavingModificationsInCache: boolean;
@@ -110,10 +139,63 @@ describe('fsContext provider', () => {
         );
         expect(
             ((isCalled.onUpdateParams.sdkData as any).fsModifications as DecisionApiCampaign[]).filter(
-                (i: any) => !i.variation.reference
+                (campaign: any) =>
+                    !campaign.variation.reference &&
+                    ['bqjfstuirtfg01mctmn0', 'bsq046crms2g1jsvtb20'].includes(campaign.id)
             )
         ).toEqual(fetchedModifications);
         expect(isCalled.onUpdateParams.sdkVisitor).not.toBe(null);
+        expect(isReady).toEqual(true);
+    });
+    test('it should api V1 if apiKey not set', async () => {
+        let visitor = null;
+        const { container } = render(
+            <FlagshipProvider
+                fetchNow={false}
+                envId={providerProps.envId}
+                visitorData={providerProps.visitorData}
+                onInitDone={() => {
+                    isReady = true;
+                }}
+                onUpdate={(sdkData, sdkVisitor) => {
+                    visitor = sdkVisitor;
+                }}
+            >
+                <div>Hello</div>
+            </FlagshipProvider>
+        );
+        await waitFor(() => {
+            if (!isReady) {
+                throw new Error('not ready');
+            }
+        });
+        expect(visitor.config.flagshipApi).toEqual('https://decision-api.flagship.io/v1/');
+        expect(isReady).toEqual(true);
+    });
+    test('it should api V2 if apiKey set', async () => {
+        let visitor = null;
+        const { container } = render(
+            <FlagshipProvider
+                fetchNow={false}
+                envId={providerProps.envId}
+                visitorData={providerProps.visitorData}
+                apiKey="test"
+                onInitDone={() => {
+                    isReady = true;
+                }}
+                onUpdate={(sdkData, sdkVisitor) => {
+                    visitor = sdkVisitor;
+                }}
+            >
+                <div>Hello</div>
+            </FlagshipProvider>
+        );
+        await waitFor(() => {
+            if (!isReady) {
+                throw new Error('not ready');
+            }
+        });
+        expect(visitor.config.flagshipApi).toEqual('https://decision.flagship.io/v2/');
         expect(isReady).toEqual(true);
     });
     test('it should log a warning ignore "initialModifications" props if badly set', async () => {
@@ -166,12 +248,19 @@ describe('fsContext provider', () => {
         );
         expect(computedFsVisitor && (computedFsVisitor as IFlagshipVisitor).id).toEqual(providerProps.visitorData.id);
         expect(computedSdkConfig).toEqual({
+            internal: {
+                react: {},
+                reactNative: {
+                    httpCallback: undefined
+                }
+            },
             activateNow: false,
             enableConsoleLogs: true,
             enableErrorLayout: true,
             decisionMode: 'API',
             pollingInterval: null,
             enableSafeMode: true,
+            timeout: 2,
             fetchNow: true,
             apiKey: null,
             flagshipApi: 'https://decision-api.flagship.io/v1/',
@@ -226,10 +315,17 @@ describe('fsContext provider', () => {
         );
         expect(computedFsVisitor && (computedFsVisitor as IFlagshipVisitor).id).toEqual(providerProps.visitorData.id);
         expect(computedSdkConfig).toEqual({
+            internal: {
+                react: {},
+                reactNative: {
+                    httpCallback: undefined
+                }
+            },
             activateNow: false,
             enableConsoleLogs: true,
             enableErrorLayout: true,
             enableSafeMode: true,
+            timeout: 2,
             decisionMode: 'API',
             pollingInterval: null,
             fetchNow: true,

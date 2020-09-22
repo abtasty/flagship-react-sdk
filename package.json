@@ -1,6 +1,6 @@
 {
     "name": "@flagship.io/react-sdk",
-    "version": "1.3.1",
+    "version": "2.0.5",
     "description": "Flagship REACT SDK",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
@@ -17,7 +17,7 @@
         "version": "npm run build",
         "checkReleasePrerequisites": "docker -v",
         "publish": "npm run update:reactDemoDev && npm run update:reactDemoEcommerce && git add . && git commit -m\"Post publish update\" && git push && npm run publish:reactDemoDev && npm run publish:reactDemoEcommerce",
-        "publish:reactDemoDev": "cd ./examples/react-dev-demo && npm run deploy:github",
+        "publish:reactDemoDev": "cd ./examples/react-dev-demo && npm i && npm run deploy:github",
         "publish:reactDemoEcommerce": "cd ./examples/react-ecommerce-demo && npm run release:docker",
         "update:fsLog": "npm install @flagship.io/js-sdk-logs@latest --save",
         "update:reactDemoDev": "cd ./examples/react-dev-demo && npm install @flagship.io/react-sdk@latest @flagship.io/js-sdk@latest --save && cd ../../",
@@ -56,7 +56,7 @@
     ],
     "homepage": "https://github.com/abtasty/flagship-react-sdk#readme",
     "dependencies": {
-        "@flagship.io/js-sdk": "^2.0.2",
+        "@flagship.io/js-sdk": "^2.1.4",
         "@flagship.io/js-sdk-logs": "^0.1.2"
     },
     "peerDependencies": {
@@ -64,7 +64,7 @@
     },
     "devDependencies": {
         "@testing-library/jest-dom": "^5.5.0",
-        "@testing-library/react": "^10.0.3",
+        "@testing-library/react": "^11.0.4",
         "@testing-library/react-hooks": "^3.2.1",
         "@types/enzyme": "^3.10.5",
         "@types/enzyme-adapter-react-16": "^1.0.6",
@@ -98,7 +98,7 @@
         "react-test-renderer": "^16.9.0",
         "sinon": "^9.0.2",
         "ts-jest": "^25.4.0",
-        "typescript": "^3.8.3"
+        "typescript": "^4.0.3"
     },
     "jest": {
         "setupFilesAfterEnv": [

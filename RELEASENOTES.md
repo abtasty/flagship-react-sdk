@@ -1,5 +1,43 @@
 # Flagship REACT SDK - Release notes
 
+## ➡️ Version 2.0.5
+
+-   Minor change.
+
+## ➡️ Version 2.0.4
+
+### Bug fixes 🐛
+
+-   Fix Flagship decision API V2 which was not used when `apiKey` props is defined.
+
+-   Fix `loadingComponent` not ignored when `fetchNow` is set to `false`.
+
+### Breaking changes ⚠️
+
+-   `fetchNow` prop is now `true` by default.
+
+## ➡️ Version 2.0.3
+
+-   Minor change.
+
+## ➡️ Version 2.0.2
+
+### New features 🎉
+
+-   New optimization when sending activate calls. The visitor instance in the SDK is updated instead of being recreated from scratch.
+
+## ➡️ Version 2.0.1
+
+### New features 🎉
+
+-   Panic mode supported. When you've enabled panic mode through the web dashboard, the SDK will detect it and be in safe mode. Logs will appear to warns you and default values for modifications will be return.
+
+-   `timeout` setting added. It specify the timeout duration when fetching campaigns via API mode (`decisionMode = "API"`), defined in **seconds**. Minimal value should be greater than 0. More to come on this setting soon...
+
+### Breaking changes ⚠️
+
+-   `pollingInterval` setting is now a period interval defined in **seconds** (not minutes). Minimal value is 1 second.
+
 ## ➡️ Version 2.0.0
 
 ### New features 🎉
@@ -178,10 +216,6 @@ Be aware that `apiKey` will be mandatory in the next major release as it will us
         );
         ```
 
-### Breaking changes #4 ⚠️
-
--   `fetchNow` prop is now `true` by default.
-
 ### Breaking changes #5 ⚠️
 
 -   `useFsSynchronize` has been removed. Campaigns synchronization is now handle using `useFlagship` hook:
@@ -244,6 +278,10 @@ Be aware that `apiKey` will be mandatory in the next major release as it will us
             </>
         )
         ```
+
+### Breaking changes #6 ⚠️
+
+-   `pollingInterval` setting is now a period interval defined in **seconds** (not minutes). Minimal value is 1 second.
 
 ## ➡️ Version 1.3.1
 

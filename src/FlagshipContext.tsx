@@ -6,6 +6,7 @@ import flagship, {
     IFlagshipVisitor,
     SaveCacheArgs,
     DecisionApiCampaign,
+    PostFlagshipApiCallback,
     BucketingApiResponse,
     IFlagship
 } from '@flagship.io/js-sdk';
@@ -16,6 +17,7 @@ import FlagshipErrorBoundary, { HandleErrorBoundaryDisplay } from './FlagshipErr
 
 export declare type FsStatus = {
     isLoading: boolean;
+    isVisitorDefined: boolean;
     hasError: boolean;
     lastRefresh: string | null;
     firstInitSuccess: string | null;
@@ -33,8 +35,8 @@ export declare type FsState = {
 };
 
 export interface FlagshipReactSdkConfig extends FlagshipSdkConfig {
-    enableErrorLayout: boolean;
-    enableSafeMode: boolean;
+    enableErrorLayout?: boolean;
+    enableSafeMode?: boolean;
 }
 
 export const initState: FsState = {
@@ -44,6 +46,7 @@ export const initState: FsState = {
     fsModifications: null,
     status: {
         isLoading: true,
+        isVisitorDefined: false,
         firstInitSuccess: null,
         lastRefresh: null,
         hasError: false
@@ -64,6 +67,7 @@ const FlagshipContext = React.createContext<{
 export type FsOnUpdateArguments = {
     fsModifications: DecisionApiCampaign[] | null;
     config: FlagshipReactSdkConfig;
+    status: FsStatus;
 };
 
 export type FsOnUpdate = (data: FsOnUpdateArguments, visitor: IFlagshipVisitor | null) => void;
@@ -78,15 +82,17 @@ interface FlagshipProviderProps {
     };
     reactNative?: {
         handleErrorDisplay: HandleErrorBoundaryDisplay;
+        httpCallback: PostFlagshipApiCallback;
     };
     fetchNow?: boolean;
     decisionMode?: 'API' | 'Bucketing';
-    pollingInterval?: number;
+    pollingInterval?: number | null;
     activateNow?: boolean;
     enableConsoleLogs?: boolean;
     enableErrorLayout?: boolean;
     enableSafeMode?: boolean;
     nodeEnv?: string;
+    timeout?: number;
     flagshipApi?: string;
     apiKey?: string | null;
     initialModifications?: DecisionApiCampaign[];
@@ -113,6 +119,7 @@ export const FlagshipProvider: React.SFC<FlagshipProviderProps> = ({
     onBucketingSuccess,
     onBucketingFail,
     onUpdate,
+    timeout,
     fetchNow,
     activateNow,
     enableConsoleLogs,
@@ -127,13 +134,14 @@ export const FlagshipProvider: React.SFC<FlagshipProviderProps> = ({
     const { id, context } = visitorData;
     const extractConfiguration = (): FlagshipReactSdkConfig => {
         const configV2: FlagshipReactSdkConfig = {
-            fetchNow: fetchNow || false,
+            fetchNow: typeof fetchNow !== 'boolean' ? true : fetchNow,
             decisionMode: decisionMode || 'API',
             pollingInterval: pollingInterval || null,
-            activateNow: activateNow || false,
-            enableConsoleLogs: enableConsoleLogs || false,
-            enableErrorLayout: enableErrorLayout || false,
-            enableSafeMode: enableSafeMode || false,
+            activateNow: typeof activateNow !== 'boolean' ? false : activateNow,
+            timeout: typeof timeout !== 'number' ? undefined : timeout,
+            enableConsoleLogs: typeof enableConsoleLogs !== 'boolean' ? false : enableConsoleLogs,
+            enableErrorLayout: typeof enableErrorLayout !== 'boolean' ? false : enableErrorLayout,
+            enableSafeMode: typeof enableSafeMode !== 'boolean' ? false : enableSafeMode,
             nodeEnv: nodeEnv || 'production',
             initialBucketing: initialBucketing || null,
             flagshipApi,
@@ -156,7 +164,7 @@ export const FlagshipProvider: React.SFC<FlagshipProviderProps> = ({
         error: Error | null;
     }>({ hasError: false, error: null });
     const {
-        status: { isLoading, firstInitSuccess },
+        status: { isLoading, isVisitorDefined, firstInitSuccess },
         fsVisitor
     } = state;
     const tryCatchCallback = (callback: any): void => {
@@ -167,10 +175,19 @@ export const FlagshipProvider: React.SFC<FlagshipProviderProps> = ({
             setError({ error, hasError: true });
         }
     };
-    const computeConfig = () => {
+    const computeConfig = (): FlagshipSdkConfig => {
+        const sdkConfig = {
+            internal: {
+                react: {},
+                reactNative: {
+                    httpCallback: reactNative?.httpCallback
+                }
+            }
+        };
         if (Array.isArray(state.private.previousFetchedModifications)) {
             return {
                 ...configuration,
+                ...sdkConfig,
                 initialModifications: [...state.private.previousFetchedModifications]
             };
         }
@@ -179,26 +196,34 @@ export const FlagshipProvider: React.SFC<FlagshipProviderProps> = ({
                 'initialModifications props is not correctly set and has been ignored, please check the documentation.'
             );
         }
-        return { ...configuration };
+        return { ...configuration, ...sdkConfig };
     };
-    const computedConfig: FlagshipSdkConfig = computeConfig();
+    const computedConfig: FlagshipSdkConfig = computeConfig(); // FINAL CONFIG
 
-    const handleErrorDisplay = reactNative && reactNative.handleErrorDisplay;
+    const handleErrorDisplay = reactNative?.handleErrorDisplay;
 
     // Call FlagShip any time context get changed.
     useEffect(() => {
-        if (
-            state.fsSdk &&
-            state.fsSdk.config.decisionMode !== computedConfig.decisionMode &&
-            state.fsSdk.config.decisionMode === 'Bucketing'
-        ) {
+        let previousBucketing = null;
+        if (state.fsSdk && state.fsSdk.config.decisionMode === 'Bucketing') {
             state.fsSdk.stopBucketingPolling(); // force bucketing to stop
-            state.log.debug('bucketing automatically stopped because the decision mode has changed');
+            state.log.info(
+                'Bucketing automatically stopped because a setting props from FlagshipProvider has changed. Bucketing will restart automatically if decisionMode is still "Bucketing"'
+            );
+
+            state.fsSdk.eventEmitter.removeAllListeners(); // remove all listeners
+
+            previousBucketing = state.fsSdk.bucket?.data || null;
         }
-        const fsSdk = flagship.start(envId, computedConfig);
+        const { apiKey: theApiKey, ...otherComputedConfig } = computedConfig;
+        const fsSdk = flagship.start(envId, theApiKey, {
+            ...otherComputedConfig,
+            initialBucketing:
+                computedConfig.initialBucketing === null ? previousBucketing : computedConfig.initialBucketing
+        });
         fsSdk.eventEmitter.on('bucketPollingSuccess', ({ status, payload }: BucketingSuccessArgs) => {
             if (onBucketingSuccess) {
-                onBucketingSuccess({ status, payload });
+                onBucketingSuccess({ status: status.toString(), payload });
             }
         });
         fsSdk.eventEmitter.on('bucketPollingFailed', (error: Error) => {
@@ -206,30 +231,38 @@ export const FlagshipProvider: React.SFC<FlagshipProviderProps> = ({
                 onBucketingFail(error);
             }
         });
-        const visitorInstance = fsSdk.newVisitor(id, context as FlagshipVisitorContext);
-        setState({
-            ...state,
-            status: {
-                ...state.status,
-                isLoading: true
-            },
-            fsVisitor: visitorInstance,
-            fsModifications: visitorInstance.fetchedModifications || null,
-            fsSdk
-        });
+
+        let visitorInstance: IFlagshipVisitor;
+        // if already previous visitor
+        if (state?.fsVisitor && state.fsVisitor.envId === fsSdk.envId && state.fsVisitor.id === id) {
+            if (state.fsVisitor.context !== context) {
+                state.log.debug(
+                    `update visitor after re-render, but context is different (old vs new): vContext (${JSON.stringify(
+                        state.fsVisitor?.context
+                    )} vs ${JSON.stringify(context)})`
+                );
+            } else {
+                state.log.debug(`update visitor after re-render`);
+            }
+            visitorInstance = (fsSdk as any).updateVisitor(state.fsVisitor, context);
+        } else {
+            // if existing visitor
+            if (state?.fsVisitor) {
+                state.log.debug(
+                    `unable to update visitor after re-render because of strong update (old vs new): envId (${state.fsVisitor?.envId} vs ${fsSdk.envId}) or vId (${state.fsVisitor?.id} vs ${id})`
+                );
+            }
+            visitorInstance = fsSdk.newVisitor(id, context as FlagshipVisitorContext);
+        }
         if (onInitStart) {
             tryCatchCallback(onInitStart);
         }
-        visitorInstance.on('saveCache', (args) => {
-            if (onSavingModificationsInCache) {
-                tryCatchCallback(() => onSavingModificationsInCache(args));
-            }
-        });
         visitorInstance.on('ready', () => {
             setState({
                 ...state,
                 status: {
                     ...state.status,
+                    isVisitorDefined: !!visitorInstance,
                     isLoading: false,
                     lastRefresh: new Date().toISOString(),
                     firstInitSuccess: state.status.firstInitSuccess || new Date().toISOString()
@@ -245,6 +278,22 @@ export const FlagshipProvider: React.SFC<FlagshipProviderProps> = ({
                 tryCatchCallback(onInitDone);
             }
         });
+        visitorInstance.on('saveCache', (args) => {
+            if (onSavingModificationsInCache) {
+                tryCatchCallback(() => onSavingModificationsInCache(args));
+            }
+        });
+        setState({
+            ...state,
+            status: {
+                ...state.status,
+                isVisitorDefined: !!visitorInstance,
+                isLoading: true
+            },
+            fsVisitor: visitorInstance,
+            fsModifications: visitorInstance.fetchedModifications || null,
+            fsSdk
+        });
     }, [envId, id, JSON.stringify(configuration) + JSON.stringify(context)]);
 
     useEffect(() => {
@@ -252,6 +301,7 @@ export const FlagshipProvider: React.SFC<FlagshipProviderProps> = ({
             tryCatchCallback(() => {
                 onUpdate(
                     {
+                        status: state.status,
                         fsModifications: state.fsModifications,
                         config: { ...state.config, ...state.fsVisitor?.config }
                     },
@@ -259,12 +309,20 @@ export const FlagshipProvider: React.SFC<FlagshipProviderProps> = ({
                 );
             });
         }
-    }, [state]);
+    }, [
+        Object.keys(state).map((key) => {
+            const stateDuplicate: any = state;
+            return stateDuplicate[key];
+        })
+    ]);
 
     const handleDisplay = (): React.ReactNode => {
         const isFirstInit = !fsVisitor || !firstInitSuccess;
-        if (isLoading && loadingComponent && isFirstInit) {
+        if (isLoading && loadingComponent && isFirstInit && fetchNow) {
             return <>{loadingComponent}</>;
+        }
+        if (computedConfig.initialModifications && !isVisitorDefined) {
+            return null;
         }
         return <>{children}</>;
     };
