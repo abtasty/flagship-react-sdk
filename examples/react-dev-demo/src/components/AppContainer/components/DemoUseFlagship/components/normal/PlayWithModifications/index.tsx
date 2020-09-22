@@ -17,6 +17,7 @@ const PlayWithModifications: React.FC = () => {
     };
     const output = useFlagship(fsParams);
     const { modifications: fsModifications } = output;
+    console.log('onUpdate - triggered with: ' + fsModifications.color);
     return (
         <>
             <p>demo: </p>

@@ -1,10 +1,10 @@
 import './App.css';
-
+import { DecisionApiCampaign } from '@flagship.io/js-sdk';
 import { FlagshipProvider, FlagshipReactSdkConfig } from '@flagship.io/react-sdk';
 import React, { createContext, Dispatch, SetStateAction } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { NotificationContainer, NotificationManager } from 'react-notifications';
-
+import initialModifications from './mock/initialModifications';
 import { AppContainer } from './components/AppContainer';
 import config from './config';
 import AppHeader from './components/AppHeader';
@@ -64,6 +64,7 @@ const App: React.FC = () => {
         <>
             <SettingContext.Provider value={{ currentSettings, setSettings, QA, setQA }}>
                 <FlagshipProvider
+                    initialModifications={initialModifications as DecisionApiCampaign[]}
                     envId={currentSettings.envId}
                     fetchNow={currentSettings.fetchNow}
                     enableConsoleLogs={currentSettings.enableConsoleLogs}
@@ -82,30 +83,31 @@ const App: React.FC = () => {
                     onInitDone={() => {
                         console.log('onInitDone - triggered');
                     }}
-                    onUpdate={({ fsModifications }) => {
+                    onUpdate={({ fsModifications, status }) => {
                         console.log('onUpdate - triggered');
+                        console.log('onUpdate - ' + JSON.stringify(status));
                     }}
                     onBucketingSuccess={({ status }) => {
                         if (status === '200') {
                             NotificationManager.info('Bucketing has been updated (status = 200)');
                         }
                     }}
-                    loadingComponent={
-                        <Container className="mt5">
-                            <Row>
-                                <Col
-                                    xs={12}
-                                    style={{
-                                        color: 'white',
-                                        height: '100vh',
-                                        fontSize: '5vw'
-                                    }}
-                                >
-                                    Loading Flagship React SDK...
-                                </Col>
-                            </Row>
-                        </Container>
-                    }
+                    // loadingComponent={
+                    //     <Container className="mt5">
+                    //         <Row>
+                    //             <Col
+                    //                 xs={12}
+                    //                 style={{
+                    //                     color: 'white',
+                    //                     height: '100vh',
+                    //                     fontSize: '5vw'
+                    //                 }}
+                    //             >
+                    //                 Loading Flagship React SDK...
+                    //             </Col>
+                    //         </Row>
+                    //     </Container>
+                    // }
                 >
                     <NotificationContainer />
                     <AppHeader />
