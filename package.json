@@ -1,108 +1,108 @@
 {
-    "name": "@flagship.io/react-sdk",
-    "version": "2.0.6",
-    "description": "Flagship REACT SDK",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
-    "files": [
-        "dist",
-        "CONTRIBUTING.md",
-        "README.md",
-        "package.json"
-    ],
-    "scripts": {
-        "test": "jest --silent --verbose",
-        "test:coverage": "jest --coverage --silent",
-        "release": "npm run checkReleasePrerequisites && docker login https://docker.pkg.github.com && np",
-        "version": "npm run build",
-        "checkReleasePrerequisites": "docker -v",
-        "publish": "npm run update:reactDemoDev && npm run update:reactDemoEcommerce && git add . && git commit -m\"Post publish update\" && git push && npm run publish:reactDemoDev && npm run publish:reactDemoEcommerce",
-        "publish:reactDemoDev": "cd ./examples/react-dev-demo && npm i && npm run deploy:github",
-        "publish:reactDemoEcommerce": "cd ./examples/react-ecommerce-demo && npm run release:docker",
-        "update:fsLog": "npm install @flagship.io/js-sdk-logs@latest --save",
-        "update:reactDemoDev": "cd ./examples/react-dev-demo && npm install @flagship.io/react-sdk@latest @flagship.io/js-sdk@latest --save && cd ../../",
-        "update:reactDemoEcommerce": "cd ./examples/react-ecommerce-demo && npm install @flagship.io/react-sdk@latest @flagship.io/js-sdk@latest --save && cd ../../",
-        "contributors:add": "all-contributors add",
-        "contributors:generate": "all-contributors generate",
-        "clean": "rm -rf ./node_modules/react && rm -rf ./node_modules/react-dom",
-        "build": "npm install @flagship.io/js-sdk@latest --save && rm -rf dist && tsc",
-        "build:skipUpdate": "rm -rf dist && tsc"
+  "name": "@flagship.io/react-sdk",
+  "version": "2.0.6",
+  "description": "Flagship REACT SDK",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "CONTRIBUTING.md",
+    "README.md",
+    "package.json"
+  ],
+  "scripts": {
+    "test": "jest --silent --verbose",
+    "test:coverage": "jest --coverage --silent",
+    "release": "npm run checkReleasePrerequisites && docker login https://docker.pkg.github.com && np",
+    "version": "npm run build",
+    "checkReleasePrerequisites": "docker -v",
+    "publish": "npm run update:reactDemoDev && npm run update:reactDemoEcommerce && git add . && git commit -m\"Post publish update\" && git push && npm run publish:reactDemoDev && npm run publish:reactDemoEcommerce",
+    "publish:reactDemoDev": "cd ./examples/react-dev-demo && npm i && npm run deploy:github",
+    "publish:reactDemoEcommerce": "cd ./examples/react-ecommerce-demo && npm run release:docker",
+    "update:fsLog": "npm install @flagship.io/js-sdk-logs@latest --save",
+    "update:reactDemoDev": "cd ./examples/react-dev-demo && npm install @flagship.io/react-sdk@latest @flagship.io/js-sdk@latest --save && cd ../../",
+    "update:reactDemoEcommerce": "cd ./examples/react-ecommerce-demo && npm install @flagship.io/react-sdk@latest @flagship.io/js-sdk@latest --save && cd ../../",
+    "contributors:add": "all-contributors add",
+    "contributors:generate": "all-contributors generate",
+    "clean": "rm -rf ./node_modules/react && rm -rf ./node_modules/react-dom",
+    "build": "npm install @flagship.io/js-sdk@latest --save && rm -rf dist && tsc",
+    "build:skipUpdate": "rm -rf dist && tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abtasty/flagship-react-sdk.git"
+  },
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/abtasty/flagship-react-sdk/issues",
+    "email": "emilien.domenge-heritier@abtasty.com"
+  },
+  "contributors": [
+    {
+      "name": "Emilien Domenge-Heritier",
+      "email": "emilien.domenge-heritier@abtasty.com",
+      "url": "https://domenge.fr"
     },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/abtasty/flagship-react-sdk.git"
-    },
-    "license": "Apache-2.0",
-    "bugs": {
-        "url": "https://github.com/abtasty/flagship-react-sdk/issues",
-        "email": "emilien.domenge-heritier@abtasty.com"
-    },
-    "contributors": [
-        {
-            "name": "Emilien Domenge-Heritier",
-            "email": "emilien.domenge-heritier@abtasty.com",
-            "url": "https://domenge.fr"
-        },
-        {
-            "name": "Guillaume Jacquart",
-            "email": "guillaume.jacquart@abtasty.com"
-        }
-    ],
-    "keywords": [
-        "flagship",
-        "abtasty",
-        "react",
-        "sdk"
-    ],
-    "homepage": "https://github.com/abtasty/flagship-react-sdk#readme",
-    "dependencies": {
-        "@flagship.io/js-sdk": "^2.1.5",
-        "@flagship.io/js-sdk-logs": "^0.1.2"
-    },
-    "peerDependencies": {
-        "react": "^16.8.0"
-    },
-    "devDependencies": {
-        "@testing-library/jest-dom": "^5.5.0",
-        "@testing-library/react": "^11.0.4",
-        "@testing-library/react-hooks": "^3.2.1",
-        "@types/enzyme": "^3.10.5",
-        "@types/enzyme-adapter-react-16": "^1.0.6",
-        "@types/jest": "^25.2.1",
-        "@types/react": "^16.9.32",
-        "@types/react-dom": "^16.9.6",
-        "@types/sinon": "^9.0.0",
-        "@typescript-eslint/eslint-plugin": "^2.26.0",
-        "@typescript-eslint/parser": "^2.26.0",
-        "all-contributors-cli": "^6.16.1",
-        "awesome-typescript-loader": "^5.2.1",
-        "axios": "^0.19.2",
-        "enzyme": "^3.11.0",
-        "enzyme-adapter-react-16": "^1.15.2",
-        "enzyme-to-json": "^3.4.4",
-        "eslint": "^6.8.0",
-        "eslint-config-airbnb": "^18.1.0",
-        "eslint-config-prettier": "^6.10.1",
-        "eslint-loader": "^3.0.3",
-        "eslint-plugin-import": "^2.20.2",
-        "eslint-plugin-jsx-a11y": "^6.2.3",
-        "eslint-plugin-prettier": "^3.1.2",
-        "eslint-plugin-react": "^7.19.0",
-        "eslint-plugin-react-hooks": "^2.5.0",
-        "jest": "^25.4.0",
-        "jest-mock-axios": "^3.2.0",
-        "np": "^6.2.3",
-        "prettier": "^2.0.4",
-        "react": "^16.9.0",
-        "react-dom": "^16.9.0",
-        "react-test-renderer": "^16.9.0",
-        "sinon": "^9.0.2",
-        "ts-jest": "^25.4.0",
-        "typescript": "^4.0.3"
-    },
-    "jest": {
-        "setupFilesAfterEnv": [
-            "./src/setupTests.js"
-        ]
+    {
+      "name": "Guillaume Jacquart",
+      "email": "guillaume.jacquart@abtasty.com"
     }
+  ],
+  "keywords": [
+    "flagship",
+    "abtasty",
+    "react",
+    "sdk"
+  ],
+  "homepage": "https://github.com/abtasty/flagship-react-sdk#readme",
+  "dependencies": {
+    "@flagship.io/js-sdk": "fs-js-sdk-5d64bd6c-eee9-4505-938b-e40654a73b9b.tgz",
+    "@flagship.io/js-sdk-logs": "^0.1.2"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.5.0",
+    "@testing-library/react": "^11.0.4",
+    "@testing-library/react-hooks": "^3.2.1",
+    "@types/enzyme": "^3.10.5",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
+    "@types/jest": "^25.2.1",
+    "@types/react": "^16.9.32",
+    "@types/react-dom": "^16.9.6",
+    "@types/sinon": "^9.0.0",
+    "@typescript-eslint/eslint-plugin": "^2.26.0",
+    "@typescript-eslint/parser": "^2.26.0",
+    "all-contributors-cli": "^6.16.1",
+    "awesome-typescript-loader": "^5.2.1",
+    "axios": "^0.19.2",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "enzyme-to-json": "^3.4.4",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-loader": "^3.0.3",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^2.5.0",
+    "jest": "^25.4.0",
+    "jest-mock-axios": "^3.2.0",
+    "np": "^6.2.3",
+    "prettier": "^2.0.4",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-test-renderer": "^16.9.0",
+    "sinon": "^9.0.2",
+    "ts-jest": "^25.4.0",
+    "typescript": "^4.0.3"
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "./src/setupTests.js"
+    ]
+  }
 }
