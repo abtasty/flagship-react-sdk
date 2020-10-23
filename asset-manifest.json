@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/flagship-react-sdk/static/css/main.7ee7d1f0.chunk.css",
-    "main.js": "/flagship-react-sdk/static/js/main.9f13a50f.chunk.js",
-    "main.js.map": "/flagship-react-sdk/static/js/main.9f13a50f.chunk.js.map",
+    "main.css": "/flagship-react-sdk/static/css/main.8b61ef1e.chunk.css",
+    "main.js": "/flagship-react-sdk/static/js/main.e89813ad.chunk.js",
+    "main.js.map": "/flagship-react-sdk/static/js/main.e89813ad.chunk.js.map",
     "runtime-main.js": "/flagship-react-sdk/static/js/runtime-main.f58ac21c.js",
     "runtime-main.js.map": "/flagship-react-sdk/static/js/runtime-main.f58ac21c.js.map",
     "static/css/2.fd12d1d7.chunk.css": "/flagship-react-sdk/static/css/2.fd12d1d7.chunk.css",
-    "static/js/2.dad0abf7.chunk.js": "/flagship-react-sdk/static/js/2.dad0abf7.chunk.js",
-    "static/js/2.dad0abf7.chunk.js.map": "/flagship-react-sdk/static/js/2.dad0abf7.chunk.js.map",
+    "static/js/2.fccc908b.chunk.js": "/flagship-react-sdk/static/js/2.fccc908b.chunk.js",
+    "static/js/2.fccc908b.chunk.js.map": "/flagship-react-sdk/static/js/2.fccc908b.chunk.js.map",
     "index.html": "/flagship-react-sdk/index.html",
-    "precache-manifest.a17202dfbbcafe425a7e8494d987b9f3.js": "/flagship-react-sdk/precache-manifest.a17202dfbbcafe425a7e8494d987b9f3.js",
+    "precache-manifest.afc83f1da6b461a2716e2b6d04779fe7.js": "/flagship-react-sdk/precache-manifest.afc83f1da6b461a2716e2b6d04779fe7.js",
     "service-worker.js": "/flagship-react-sdk/service-worker.js",
     "static/css/2.fd12d1d7.chunk.css.map": "/flagship-react-sdk/static/css/2.fd12d1d7.chunk.css.map",
-    "static/css/main.7ee7d1f0.chunk.css.map": "/flagship-react-sdk/static/css/main.7ee7d1f0.chunk.css.map",
+    "static/css/main.8b61ef1e.chunk.css.map": "/flagship-react-sdk/static/css/main.8b61ef1e.chunk.css.map",
     "static/media/Flagship-horizontal-product-white.png": "/flagship-react-sdk/static/media/Flagship-horizontal-product-white.6e8b90f3.png",
     "static/media/notifications.css": "/flagship-react-sdk/static/media/notification.c0d3c94c.eot"
   },
   "entrypoints": [
     "static/js/runtime-main.f58ac21c.js",
     "static/css/2.fd12d1d7.chunk.css",
-    "static/js/2.dad0abf7.chunk.js",
-    "static/css/main.7ee7d1f0.chunk.css",
-    "static/js/main.9f13a50f.chunk.js"
+    "static/js/2.fccc908b.chunk.js",
+    "static/css/main.8b61ef1e.chunk.css",
+    "static/js/main.e89813ad.chunk.js"
   ]
 }
