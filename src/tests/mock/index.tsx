@@ -52,6 +52,7 @@ export const providerProps = {
         enableConsoleLogs: true,
         enableSafeMode: true,
         enableErrorLayout: true,
+        flagshipApi: '',
         nodeEnv: 'production',
         apiKey: 'M2FYdfXsJ12tjJQuadw7y9DZojqNGBvecpjGXY93'
     },

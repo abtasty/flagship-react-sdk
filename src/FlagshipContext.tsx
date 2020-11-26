@@ -85,12 +85,13 @@ interface FlagshipProviderProps {
     visitorData: {
         id: string;
         context?: FlagshipVisitorContext;
-        isAnonymous?: boolean;
+        isAuthenticated?: boolean;
     };
     reactNative?: {
         handleErrorDisplay: HandleErrorBoundaryDisplay;
         httpCallback: PostFlagshipApiCallback;
     };
+    enableCache?: boolean;
     fetchNow?: boolean;
     decisionMode?: 'API' | 'Bucketing';
     pollingInterval?: number | null;
@@ -134,14 +135,15 @@ export const FlagshipProvider: React.SFC<FlagshipProviderProps> = ({
     enableSafeMode,
     nodeEnv,
     flagshipApi,
+    enableCache,
     apiKey,
     decisionMode,
     pollingInterval
 }: FlagshipProviderProps) => {
     const id = visitorData?.id;
     const context = visitorData?.context;
-    const isAnonymous = visitorData?.isAnonymous || false;
-    const previousIsAnonymous = useRef<boolean>(isAnonymous);
+    const isAuthenticated = visitorData?.isAuthenticated || false;
+    const previousIsAuthenticated = useRef<boolean>(isAuthenticated);
     const isFirstRun = useRef(true);
     const { isBrowser, isServer, isNative } = useSSR();
     const isJest = areWeTestingWithJest();
@@ -151,6 +153,7 @@ export const FlagshipProvider: React.SFC<FlagshipProviderProps> = ({
         pollingInterval: pollingInterval || null,
         activateNow: typeof activateNow !== 'boolean' ? false : activateNow,
         timeout: typeof timeout !== 'number' ? undefined : timeout,
+        enableClientCache: typeof enableCache !== 'boolean' ? false : enableCache,
         enableConsoleLogs: typeof enableConsoleLogs !== 'boolean' ? false : enableConsoleLogs,
         enableErrorLayout: typeof enableErrorLayout !== 'boolean' ? false : enableErrorLayout,
         enableSafeMode: typeof enableSafeMode !== 'boolean' ? false : enableSafeMode,
@@ -270,8 +273,8 @@ export const FlagshipProvider: React.SFC<FlagshipProviderProps> = ({
         const newVisitorDetected = checkIfVisitorShouldBeNew(fsSdk);
         // NOTE: whenever the visitor is updated or created and no matter (fetchNow/activateNow is true/false), it will ALWAYS emit "ready" event.
         const visitorInstance = newVisitorDetected
-            ? fsSdk.newVisitor(id, context as FlagshipVisitorContext)
-            : (fsSdk as any).updateVisitor(state.fsVisitor, context);
+            ? fsSdk.newVisitor(id, context as FlagshipVisitorContext, { isAuthenticated })
+            : (fsSdk as any).updateVisitor(state.fsVisitor, { context, isAuthenticated });
         setState((s) => ({
             ...s,
             status: {
@@ -331,8 +334,8 @@ export const FlagshipProvider: React.SFC<FlagshipProviderProps> = ({
     }
 
     const updateVisitorIfIdentityChanged = (): boolean => {
-        const isBeingAnonymous = previousIsAnonymous.current === false && isAnonymous === true;
-        const isBeingAuthenticated = previousIsAnonymous.current === true && isAnonymous === false;
+        const isBeingAuthenticated = previousIsAuthenticated.current === false && isAuthenticated === true;
+        const isBeingAnonymous = previousIsAuthenticated.current === true && isAuthenticated === false;
         const hasVisitorIdentityChange = isBeingAnonymous || isBeingAuthenticated;
         const updateVisitorAndStatus = (fsV: IFlagshipVisitor, isLoadingValue: boolean): void => {
             setState((s) => ({
@@ -366,7 +369,7 @@ export const FlagshipProvider: React.SFC<FlagshipProviderProps> = ({
             }
         }
 
-        previousIsAnonymous.current = isAnonymous;
+        previousIsAuthenticated.current = isAuthenticated;
 
         return hasVisitorIdentityChange;
     };
@@ -390,7 +393,7 @@ export const FlagshipProvider: React.SFC<FlagshipProviderProps> = ({
         }
         let previousBucketing = null;
 
-        // STEP 1: First check if the isAnonymous has changed (this step must be in this useEffect as it listen the visitorId as well)
+        // STEP 1: First check if the isAuthenticated has changed (this step must be in this useEffect as it listen the visitorId as well)
         const isVisitorIdentityChanged = updateVisitorIfIdentityChanged();
         if (isVisitorIdentityChanged) {
             return; // If true, means, already updated so don't need to go further
@@ -413,7 +416,7 @@ export const FlagshipProvider: React.SFC<FlagshipProviderProps> = ({
 
         // STEP 4: check if should update the visitor or create a brand new one.
         postInitSdkForClientSide(fsSdk);
-    }, [envId, id, isAnonymous, JSON.stringify(configuration) + JSON.stringify(context)]);
+    }, [envId, id, isAuthenticated, JSON.stringify(configuration) + JSON.stringify(context)]);
 
     useEffect(() => {
         const isSdkReady = state.status.isVisitorDefined && state.status.firstInitSuccess !== null;
@@ -473,6 +476,7 @@ FlagshipProvider.defaultProps = {
     loadingComponent: undefined,
     fetchNow: true,
     activateNow: false,
+    enableCache: true,
     decisionMode: 'API',
     pollingInterval: undefined,
     enableConsoleLogs: false,
