@@ -27,6 +27,7 @@ export const defaultContext: {
         log: null,
         fsModifications: null,
         status: {
+            isSdkReady: false,
             isLoading: true,
             isVisitorDefined: false,
             lastRefresh: null,
@@ -49,7 +50,8 @@ export const providerProps = {
         enableConsoleLogs: true,
         enableSafeMode: true,
         enableErrorLayout: true,
-        nodeEnv: 'production'
+        nodeEnv: 'production',
+        apiKey: 'M2FYdfXsJ12tjJQuadw7y9DZojqNGBvecpjGXY93'
     },
     envId: 'bn1ab7m56qolupi5sa0g'
 };
