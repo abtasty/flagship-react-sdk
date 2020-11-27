@@ -4,6 +4,7 @@ import { FsState } from '../../FlagshipContext';
 // import manyModifInManyCampaigns from './apiAnswers/manyModifInManyCampaigns';
 import oneModifInMoreThanOneCampaign from './apiAnswers/oneModifInMoreThanOneCampaign';
 import { vId } from './env';
+import { getFlaghipApi, getFlaghipApiKey } from '../helper/testHelper';
 
 export const apiAnswers = {
     // manyModifInManyCampaigns,
@@ -52,9 +53,9 @@ export const providerProps = {
         enableConsoleLogs: true,
         enableSafeMode: true,
         enableErrorLayout: true,
-        flagshipApi: '',
+        flagshipApi: getFlaghipApi(),
         nodeEnv: 'production',
-        apiKey: 'M2FYdfXsJ12tjJQuadw7y9DZojqNGBvecpjGXY93'
+        apiKey: getFlaghipApiKey()
     },
     envId: 'bn1ab7m56qolupi5sa0g'
 };

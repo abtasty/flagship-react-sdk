@@ -2,13 +2,13 @@ import '@testing-library/jest-dom/extend-expect';
 
 import { render, waitFor } from '@testing-library/react';
 import React from 'react';
-
 import {
     DecisionApiCampaign,
     IFlagshipVisitor,
     DecisionApiResponseData,
     GetModificationsOutput
 } from '@flagship.io/js-sdk';
+import { getFlaghipApi, getFlaghipApiKey } from './helper/testHelper';
 import { FlagshipProvider, FlagshipReactSdkConfig, FsOnUpdateArguments } from '../FlagshipContext';
 import { providerProps, fetchedModifications, anonymousIdForTest } from './mock';
 
@@ -137,13 +137,12 @@ describe('fsContext provider', () => {
         expect(((isCalled.onUpdateParams.sdkData as any).fsModifications as DecisionApiCampaign[]).length > 0).toEqual(
             true
         );
-        expect(
-            ((isCalled.onUpdateParams.sdkData as any).fsModifications as DecisionApiCampaign[]).filter(
-                (campaign: any) =>
-                    !campaign.variation.reference &&
-                    ['bqjfstuirtfg01mctmn0', 'bsq046crms2g1jsvtb20'].includes(campaign.id)
-            )
-        ).toEqual(fetchedModifications);
+        const filteredFetchedModifsOutput = ((isCalled.onUpdateParams.sdkData as any)
+            .fsModifications as DecisionApiCampaign[]).filter(
+            (campaign: any) =>
+                !campaign.variation.reference && ['bqjfstuirtfg01mctmn0', 'bsq046crms2g1jsvtb20'].includes(campaign.id)
+        );
+        expect(filteredFetchedModifsOutput).toEqual(fetchedModifications);
         expect(isCalled.onUpdateParams.sdkVisitor).not.toBe(null);
         expect(isReady).toEqual(true);
     });
@@ -256,14 +255,15 @@ describe('fsContext provider', () => {
             },
             activateNow: false,
             enableConsoleLogs: true,
+            enableClientCache: true,
             enableErrorLayout: true,
             decisionMode: 'API',
             pollingInterval: null,
             enableSafeMode: true,
             timeout: 2,
             fetchNow: true,
-            apiKey: 'M2FYdfXsJ12tjJQuadw7y9DZojqNGBvecpjGXY93',
-            flagshipApi: 'https://decision.flagship.io/v2/',
+            apiKey: getFlaghipApiKey(),
+            flagshipApi: getFlaghipApi(),
             initialModifications: null,
             initialBucketing: null,
             nodeEnv: 'production'
@@ -323,14 +323,15 @@ describe('fsContext provider', () => {
             },
             activateNow: false,
             enableConsoleLogs: true,
+            enableClientCache: true,
             enableErrorLayout: true,
             enableSafeMode: true,
             timeout: 2,
             decisionMode: 'API',
             pollingInterval: null,
             fetchNow: true,
-            apiKey: 'M2FYdfXsJ12tjJQuadw7y9DZojqNGBvecpjGXY93',
-            flagshipApi: 'https://decision.flagship.io/v2/',
+            apiKey: getFlaghipApiKey(),
+            flagshipApi: getFlaghipApi(),
             initialModifications: customFetchedModifications,
             initialBucketing: null,
             nodeEnv: 'production'
@@ -418,7 +419,7 @@ describe('fsContext provider', () => {
 
         expect(isReady).toEqual(true);
     });
-    test('it should compute correctly the visitor when first rendering + "isAnonymous=false"', async () => {
+    test('it should compute correctly the visitor when first rendering + "isAuthenticated=false"', async () => {
         let sdkStatus;
         let sdkVisitorInstance;
         const { container } = render(
@@ -426,7 +427,7 @@ describe('fsContext provider', () => {
                 envId={providerProps.envId}
                 {...providerProps.config}
                 nodeEnv="development"
-                visitorData={{ ...providerProps.visitorData, isAnonymous: false, id: anonymousIdForTest }}
+                visitorData={{ ...providerProps.visitorData, isAuthenticated: false, id: anonymousIdForTest }}
                 onInitDone={() => {
                     isReady = true;
                 }}
@@ -452,16 +453,16 @@ describe('fsContext provider', () => {
 
         expect(isReady).toEqual(true);
     });
-    test('it should compute correctly the visitor when first rendering + "isAnonymous=true" then switch to authenticate and then sign out', async () => {
+    test('it should compute correctly the visitor when first rendering + "isAuthenticated=true" then switch to authenticate and then sign out', async () => {
         let sdkStatus;
         let sdkVisitorInstance;
-        const renderProvider = (vId, isAnonymous) => (
+        const renderProvider = (vId, isAuthenticated) => (
             <FlagshipProvider
                 envId={providerProps.envId}
                 {...providerProps.config}
                 fetchNow={false}
                 nodeEnv="development"
-                visitorData={{ ...providerProps.visitorData, isAnonymous, id: vId }}
+                visitorData={{ ...providerProps.visitorData, isAuthenticated, id: vId }}
                 onInitDone={() => {
                     isReady = true;
                 }}
@@ -476,7 +477,7 @@ describe('fsContext provider', () => {
                 <div>Hello I'm visible, even with safe mode</div>
             </FlagshipProvider>
         );
-        const { container, rerender } = render(renderProvider(anonymousIdForTest, true));
+        const { container, rerender } = render(renderProvider(anonymousIdForTest, false));
         await waitFor(() => {
             if (!isReady) {
                 throw new Error('not ready');
@@ -488,9 +489,9 @@ describe('fsContext provider', () => {
 
         expect(isReady).toEqual(true);
 
-        // Update visitor id and isAnonymous so that the visitor must be considered as authenticated
+        // Update visitor id and isAuthenticated so that the visitor must be considered as authenticated
         isReady = false;
-        rerender(renderProvider(providerProps.visitorData.id, false));
+        rerender(renderProvider(providerProps.visitorData.id, true));
 
         await waitFor(() => {
             if (!isReady) {
@@ -503,9 +504,9 @@ describe('fsContext provider', () => {
 
         expect(isReady).toEqual(true);
 
-        // Update visitor id and isAnonymous so that the visitor must be considered as signed off
+        // Update visitor id and isAuthenticated so that the visitor must be considered as signed off
         isReady = false;
-        rerender(renderProvider(anonymousIdForTest, true));
+        rerender(renderProvider(anonymousIdForTest, false));
 
         await waitFor(() => {
             if (!isReady) {

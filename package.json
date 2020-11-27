@@ -12,6 +12,7 @@
     ],
     "scripts": {
         "test": "jest --silent --verbose",
+        "test:staging": "DECISION_API=staging && npm run test",
         "test:coverage": "jest --coverage --silent",
         "release": "npm run checkReleasePrerequisites && docker login https://docker.pkg.github.com && np",
         "version": "npm run build",

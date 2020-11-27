@@ -6,5 +6,6 @@ export default {
 
 export const API = {
     v2_prod: 'https://decision.flagship.io/v2/',
-    v1_prod: 'https://decision-api.flagship.io/v1/'
+    v1_prod: 'https://decision-api.flagship.io/v1/',
+    v2_staging: 'https://decision-staging.flagship.io/v2/'
 };
