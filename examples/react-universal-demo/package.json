@@ -8,8 +8,8 @@
     "post-update": "yarn upgrade --latest"
   },
   "dependencies": {
-    "@flagship.io/js-sdk": "fs-js-sdk-c9667aa9-bbad-49e5-9809-39d60a764e17.tgz",
-    "@flagship.io/react-sdk": "fs-react-sdk-c9667aa9-bbad-49e5-9809-39d60a764e17.tgz",
+    "@flagship.io/js-sdk": "fs-js-sdk-4976b8b1-5345-4998-880e-71e5ce775228.tgz",
+    "@flagship.io/react-sdk": "fs-react-sdk-4976b8b1-5345-4998-880e-71e5ce775228.tgz",
     "next": "latest",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
