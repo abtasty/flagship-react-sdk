@@ -59,7 +59,7 @@
   ],
   "homepage": "https://github.com/abtasty/flagship-react-sdk#readme",
   "dependencies": {
-    "@flagship.io/js-sdk": "fs-js-sdk-51a29e9f-d65c-4eca-865f-248d7a165399.tgz",
+    "@flagship.io/js-sdk": "fs-js-sdk-0265948e-d977-4f64-9265-2eaf3ccce39e.tgz",
     "@flagship.io/js-sdk-logs": "^0.1.3",
     "use-ssr": "^1.0.23"
   },
