@@ -340,6 +340,7 @@ export const FlagshipProvider: React.SFC<FlagshipProviderProps> = ({
         const updateVisitorAndStatus = (fsV: IFlagshipVisitor, isLoadingValue: boolean): void => {
             setState((s) => ({
                 ...s,
+                fsModifications: fsV.fetchedModifications,
                 status: {
                     ...s.status,
                     isLoading: isLoadingValue
@@ -359,7 +360,7 @@ export const FlagshipProvider: React.SFC<FlagshipProviderProps> = ({
                 if (!fsVisitor.anonymousId) {
                     fsVisitor.anonymousId = id;
                 }
-                fsVisitor.unauthenticate().then(() => updateVisitorAndStatus(fsVisitor, false));
+                fsVisitor.unauthenticate(id).then(() => updateVisitorAndStatus(fsVisitor, false));
             } else if (isBeingAuthenticated) {
                 fsVisitor.authenticate(id).then(() => updateVisitorAndStatus(fsVisitor, false)); // As explain in the doc, the id might or might not be the same as the anonymous id.
             }
@@ -387,8 +388,8 @@ export const FlagshipProvider: React.SFC<FlagshipProviderProps> = ({
             handleError(new Error(errorMsg));
             return;
         }
-        if (!isBrowser) {
-            state.log.debug(`useEffect triggered in an environment other than browser, SDK stopped.`);
+        if (isServer) {
+            state.log.warn(`useEffect triggered in a server environment, SDK stopped.`);
             return;
         }
         let previousBucketing = null;
