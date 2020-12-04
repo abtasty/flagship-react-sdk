@@ -11,6 +11,16 @@ const PlayConfig: React.FC = () => {
     const { currentSettings, setSettings } = useContext(SettingContext) as AppSettings;
 
     const [hasError, setError] = React.useState(false);
+
+    const handleJsonInputChange = ({ error, jsObject }, setFieldValue) => {
+        if (!error) {
+            setFieldValue('settings', jsObject || {}, true);
+            setError(false);
+        } else {
+            setError(true);
+        }
+    };
+
     return (
         <Formik
             initialValues={{
@@ -22,6 +32,7 @@ const PlayConfig: React.FC = () => {
                     decisionMode: currentSettings.decisionMode,
                     enableConsoleLogs: currentSettings.enableConsoleLogs,
                     enableErrorLayout: currentSettings.enableErrorLayout,
+                    enableClientCache: currentSettings.enableClientCache,
                     enableSafeMode: currentSettings.enableSafeMode,
                     nodeEnv: currentSettings.nodeEnv,
                     flagshipApi: currentSettings.flagshipApi,
@@ -77,14 +88,8 @@ const PlayConfig: React.FC = () => {
                             locale={locale}
                             height="550px"
                             width="100%"
-                            onChange={({ error, jsObject }) => {
-                                if (!error) {
-                                    setFieldValue('settings', jsObject || {}, true);
-                                    setError(false);
-                                } else {
-                                    setError(true);
-                                }
-                            }}
+                            onChange={(data) => handleJsonInputChange(data, setFieldValue)}
+                            onBlur={(data) => handleJsonInputChange(data, setFieldValue)}
                             style={{
                                 body: {
                                     fontSize: '16px'
