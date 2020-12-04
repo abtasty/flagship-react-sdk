@@ -21,7 +21,7 @@ export interface SdkSettings extends FlagshipReactSdkConfig {
     flagshipApi?: string;
     apiKey: string | null;
     visitorData: {
-        id: string;
+        id?: string;
         context: VisitorContext;
         isAuthenticated: boolean;
     };
@@ -52,6 +52,7 @@ const App: React.FC = () => {
             pollingInterval: config.pollingInterval,
             enableConsoleLogs: config.enableConsoleLogs,
             enableErrorLayout: config.enableErrorLayout,
+            enableClientCache: config.enableClientCache,
             enableSafeMode: config.enableSafeMode,
             timeout: config.timeout,
             flagshipApi: config.flagshipApi,
@@ -76,6 +77,7 @@ const App: React.FC = () => {
                     fetchNow={currentSettings.fetchNow}
                     enableConsoleLogs={currentSettings.enableConsoleLogs}
                     enableErrorLayout={currentSettings.enableErrorLayout}
+                    enableCache={currentSettings.enableClientCache}
                     pollingInterval={currentSettings.pollingInterval}
                     flagshipApi={currentSettings.flagshipApi}
                     apiKey={currentSettings.apiKey}

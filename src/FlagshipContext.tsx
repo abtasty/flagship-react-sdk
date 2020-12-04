@@ -83,7 +83,7 @@ interface FlagshipProviderProps {
     loadingComponent?: React.ReactNode;
     envId: string;
     visitorData: {
-        id: string;
+        id?: string;
         context?: FlagshipVisitorContext;
         isAuthenticated?: boolean;
     };
@@ -140,7 +140,7 @@ export const FlagshipProvider: React.SFC<FlagshipProviderProps> = ({
     decisionMode,
     pollingInterval
 }: FlagshipProviderProps) => {
-    const id = visitorData?.id;
+    const id = visitorData?.id || null;
     const context = visitorData?.context;
     const isAuthenticated = visitorData?.isAuthenticated || false;
     const previousIsAuthenticated = useRef<boolean>(isAuthenticated);
@@ -358,11 +358,11 @@ export const FlagshipProvider: React.SFC<FlagshipProviderProps> = ({
             if (isBeingAnonymous) {
                 // make sure the fsVisitor has an id to avoid the "no anonymous" error when unauthenticate.
                 if (!fsVisitor.anonymousId) {
-                    fsVisitor.anonymousId = id;
+                    fsVisitor.anonymousId = id || null;
                 }
                 fsVisitor.unauthenticate(id).then(() => updateVisitorAndStatus(fsVisitor, false));
             } else if (isBeingAuthenticated) {
-                fsVisitor.authenticate(id).then(() => updateVisitorAndStatus(fsVisitor, false)); // As explain in the doc, the id might or might not be the same as the anonymous id.
+                fsVisitor.authenticate(id as string).then(() => updateVisitorAndStatus(fsVisitor, false)); // As explain in the doc, the id might or might not be the same as the anonymous id.
             }
 
             if (hasVisitorIdentityChange) {
@@ -380,12 +380,6 @@ export const FlagshipProvider: React.SFC<FlagshipProviderProps> = ({
         // DON'T RUN THE CODE FIRST TIME RUNNING. Already init before the first rendering.
         if (isFirstRun.current) {
             isFirstRun.current = false;
-            return;
-        }
-        if (!id && !errorData.hasError) {
-            const errorMsg =
-                'No visitor id found. Make sure you\'ve set in prop something like this: visitorData={{id: "MY_VISITOR_ID_VALUE"}} inside the FlagshipProvider component.';
-            handleError(new Error(errorMsg));
             return;
         }
         if (isServer) {

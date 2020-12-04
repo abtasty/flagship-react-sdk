@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import React, { useContext, useEffect } from 'react';
+import { Button, Form, Alert } from 'react-bootstrap';
 import { NotificationManager } from 'react-notifications';
 
 import { AppSettings, SdkSettings, SettingContext } from '../../../../../../../App';
@@ -11,6 +11,12 @@ const PlayVisitorData: React.FC = () => {
     const [newSettings, setNewSettings] = React.useState<SdkSettings>({
         ...currSettings
     });
+
+    const [visitorIdMode, setVisIdMode] = React.useState<'manual' | 'autogen'>('manual');
+
+    useEffect(() => {
+        setNewSettings((s) => ({ ...currSettings, ...newSettings.visitorData }));
+    }, [currSettings]);
 
     const handleVisitorId = (e) =>
         setNewSettings({
@@ -29,7 +35,9 @@ const PlayVisitorData: React.FC = () => {
                 isAuthenticated: e.currentTarget.checked
             }
         });
-
+    const handleVisMode = (e) => {
+        setVisIdMode(e.currentTarget.value);
+    };
     const handleVisitorContext = (e) => {
         const node = JSON.parse(e.currentTarget.parentElement.innerText);
         const temp = { ...newSettings };
@@ -75,14 +83,42 @@ const PlayVisitorData: React.FC = () => {
                     }}
                 >
                     <div>visitor id: </div>
-                    <Form.Control
-                        type="text"
-                        className="fsTextField"
-                        onChange={handleVisitorId}
-                        value={newSettings.visitorData.id}
-                        placeholder={newSettings.visitorData.id || 'this field is required !'}
-                    ></Form.Control>
+                    <div className="mb-3">
+                        <div className="flex content-center">
+                            <Form.Check
+                                style={{ minWidth: 180, marginBottom: 'auto', marginTop: 'auto' }}
+                                type="radio"
+                                value="manual"
+                                checked={visitorIdMode === 'manual'}
+                                label={`specific value`}
+                                onChange={handleVisMode}
+                            />
+                            <Form.Control
+                                type="text"
+                                className="fsTextField"
+                                disabled={visitorIdMode !== 'manual'}
+                                onChange={handleVisitorId}
+                                value={newSettings.visitorData.id || ''}
+                                placeholder={newSettings.visitorData.id || 'this field is required !'}
+                            ></Form.Control>
+                        </div>
+
+                        <Form.Check
+                            type="radio"
+                            value="autogen"
+                            checked={visitorIdMode === 'autogen'}
+                            label={`auto-generated`}
+                            onChange={handleVisMode}
+                        />
+                    </div>
                 </Form.Group>
+                {visitorIdMode === 'autogen' && newSettings.enableClientCache && (
+                    <Alert variant="info" className="fs-alert">
+                        <b>NOTE:</b> The SDK setting "enableClientCache" is enabled. From there, it might happen that
+                        your visitor id will be the one which is currently saved in the local storage (by the SDK)
+                        instead.
+                    </Alert>
+                )}
                 <div className="fsAnchor" id="playWithVisitorContext" />
                 <Form.Group controlId="initForm.ControlSelect3">
                     <Form.Label>visitor context</Form.Label>
@@ -120,7 +156,13 @@ const PlayVisitorData: React.FC = () => {
                 <Button
                     variant="secondary"
                     onClick={() => {
-                        setSettings({ ...newSettings });
+                        setSettings({
+                            ...newSettings,
+                            visitorData: {
+                                ...newSettings.visitorData,
+                                id: visitorIdMode === 'autogen' ? undefined : newSettings.visitorData.id
+                            }
+                        });
                         NotificationManager.info('Settings updated');
                     }}
                 >

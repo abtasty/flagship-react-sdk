@@ -6,6 +6,7 @@ const config = {
     timeout: 2,
     enableConsoleLogs: true,
     enableErrorLayout: true,
+    enableClientCache: true,
     enableSafeMode: true,
     nodeEnv: 'production',
     flagshipApi: 'https://decision.flagship.io/v2/',
@@ -19,6 +20,7 @@ const config = {
         config: {
             fetchNow: true,
             enableSafeMode: true,
+            enableClientCache: true,
             enableConsoleLogs: true,
             enableErrorLayout: true
         },
