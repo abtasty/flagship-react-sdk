@@ -89,6 +89,7 @@ interface FlagshipProviderProps {
     };
     reactNative?: {
         handleErrorDisplay: HandleErrorBoundaryDisplay;
+        anonymousId?: string;
         httpCallback: PostFlagshipApiCallback;
     };
     enableCache?: boolean;
@@ -272,9 +273,17 @@ export const FlagshipProvider: React.SFC<FlagshipProviderProps> = ({
         // if already previous visitor
         const newVisitorDetected = checkIfVisitorShouldBeNew(fsSdk);
         // NOTE: whenever the visitor is updated or created and no matter (fetchNow/activateNow is true/false), it will ALWAYS emit "ready" event.
-        const visitorInstance = newVisitorDetected
+        const visitorInstance: IFlagshipVisitor = newVisitorDetected
             ? fsSdk.newVisitor(id, context as FlagshipVisitorContext, { isAuthenticated })
             : (fsSdk as any).updateVisitor(state.fsVisitor, { context, isAuthenticated });
+
+        // TEMPORARY CODE: check if should override the instance with some data coming from Reactnative SDK
+        if (reactNative?.anonymousId) {
+            visitorInstance.anonymousId = reactNative.anonymousId;
+            visitorInstance.isAuthenticated = true;
+            visitorInstance.synchronizeModifications();
+        }
+
         setState((s) => ({
             ...s,
             status: {
