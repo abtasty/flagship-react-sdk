@@ -4,8 +4,8 @@
   "private": false,
   "homepage": "https://abtasty.github.io/flagship-react-sdk/",
   "dependencies": {
-    "@flagship.io/js-sdk": "fs-js-sdk-51f2016e-aef7-427d-b918-8d8afe1fd78d.tgz",
-    "@flagship.io/react-sdk": "fs-react-sdk-51f2016e-aef7-427d-b918-8d8afe1fd78d.tgz",
+    "@flagship.io/js-sdk": "fs-js-sdk-a7ea68eb-35f0-42af-bcf9-b72537287278.tgz",
+    "@flagship.io/react-sdk": "fs-react-sdk-a7ea68eb-35f0-42af-bcf9-b72537287278.tgz",
     "@types/node": "12.12.14",
     "@types/react": "16.9.13",
     "@types/react-dom": "16.9.4",
