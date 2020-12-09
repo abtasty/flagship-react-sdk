@@ -99,7 +99,7 @@ const PlayVisitorData: React.FC = () => {
                                 disabled={visitorIdMode !== 'manual'}
                                 onChange={handleVisitorId}
                                 value={newSettings.visitorData.id || ''}
-                                placeholder={newSettings.visitorData.id || 'this field is required !'}
+                                placeholder={newSettings.visitorData.id || ''}
                             ></Form.Control>
                         </div>
 
@@ -147,6 +147,12 @@ const PlayVisitorData: React.FC = () => {
                     />
                 </Form.Group>
             </Form>
+            {newSettings.visitorData.isAuthenticated && visitorIdMode === 'autogen' && (
+                <Alert variant="danger" className="fs-alert">
+                    <b>WARNING:</b> You just set isAuthenticated to "true" but it won't work until you specify manually
+                    a visitor id.
+                </Alert>
+            )}
             <div
                 style={{
                     display: 'flex',
