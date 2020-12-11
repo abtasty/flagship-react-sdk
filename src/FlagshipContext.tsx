@@ -92,7 +92,6 @@ interface FlagshipProviderProps {
         anonymousId?: string;
         httpCallback: PostFlagshipApiCallback;
     };
-    enableCache?: boolean;
     fetchNow?: boolean;
     decisionMode?: 'API' | 'Bucketing';
     pollingInterval?: number | null;
