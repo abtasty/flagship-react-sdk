@@ -1,5 +1,15 @@
 # Flagship REACT SDK - Release notes
 
+## ➡️ Version 2.1.1
+
+### New features 🎉
+
+-   `visitorData.id` is now optional.
+
+-   `enableCache` property has been added into `FlagshipProvider` component, it is a boolean, `true` by default, that will save the visitor experience across its sessions using the browser's local storage.
+
+This feature means, you can now let the SDK handle the visitor id for you, whatever happens during its experience. You just need to be focus on its context and if the visitor is authenticated or not. That's it.
+
 ## ➡️ Version 2.1.0
 
 In this new release, we are launching **visitor reconciliation** which means that the SDK will adopt specific behavior according the data you'll provide to the visitor (in `visitorData` prop).
