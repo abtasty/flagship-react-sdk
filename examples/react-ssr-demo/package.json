@@ -8,8 +8,8 @@
     "start": "nodemon src/index.js localhost 8080"
   },
   "dependencies": {
-    "@flagship.io/js-sdk": "fs-js-sdk-20335ea9-f5b5-4b8c-a0cf-e594c960d674.tgz",
-    "@flagship.io/react-sdk": "fs-react-sdk-20335ea9-f5b5-4b8c-a0cf-e594c960d674.tgz",
+    "@flagship.io/js-sdk": "fs-js-sdk-4af4bfb8-a945-4217-a842-813c25f87eb3.tgz",
+    "@flagship.io/react-sdk": "fs-react-sdk-4af4bfb8-a945-4217-a842-813c25f87eb3.tgz",
     "express": "4.17.1",
     "express-react-views": "0.11.0",
     "react": "16.8.6",
