@@ -1,22 +1,22 @@
 {
-    "name": "react-universal-demo",
-    "version": "1.0.0",
-    "scripts": {
-        "dev": "next",
-        "build": "next build",
-        "start": "npm run build && next start",
-        "post-update": "yarn upgrade --latest"
-    },
-    "dependencies": {
-        "@flagship.io/js-sdk": "^2.1.8",
-        "@flagship.io/react-sdk": "^2.0.8",
-        "next": "latest",
-        "react": "^16.13.1",
-        "react-dom": "^16.13.1"
-    },
-    "license": "MIT",
-    "keywords": [
-        "next"
-    ],
-    "description": "A web applications with the ability to render in both the server or the client (isomorphic app), using the Flagship React SDK."
+  "name": "react-universal-demo",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "npm run build && next start",
+    "post-update": "yarn upgrade --latest"
+  },
+  "dependencies": {
+    "@flagship.io/js-sdk": "fs-js-sdk-c1967603-287e-4e34-a030-0c1a2e29a998.tgz",
+    "@flagship.io/react-sdk": "fs-react-sdk-c1967603-287e-4e34-a030-0c1a2e29a998.tgz",
+    "next": "latest",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "license": "MIT",
+  "keywords": [
+    "next"
+  ],
+  "description": "A web applications with the ability to render in both the server or the client (isomorphic app), using the Flagship React SDK."
 }
