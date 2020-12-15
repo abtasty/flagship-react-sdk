@@ -357,9 +357,9 @@ export const FlagshipProvider: React.SFC<FlagshipProviderProps> = ({
                 if (!fsVisitor.anonymousId) {
                     fsVisitor.anonymousId = id;
                 }
-                fsVisitor.unauthenticate(id).then(() => updateVisitorAndStatus(fsVisitor, false));
+                fsVisitor.unauthenticate(context, id).then(() => updateVisitorAndStatus(fsVisitor, false));
             } else if (isBeingAuthenticated) {
-                fsVisitor.authenticate(id).then(() => updateVisitorAndStatus(fsVisitor, false)); // As explain in the doc, the id might or might not be the same as the anonymous id.
+                fsVisitor.authenticate(id, context).then(() => updateVisitorAndStatus(fsVisitor, false)); // As explain in the doc, the id might or might not be the same as the anonymous id.
             }
 
             if (hasVisitorIdentityChange) {
@@ -394,7 +394,7 @@ export const FlagshipProvider: React.SFC<FlagshipProviderProps> = ({
         // STEP 1: First check if the isAuthenticated has changed (this step must be in this useEffect as it listen the visitorId as well)
         const isVisitorIdentityChanged = updateVisitorIfIdentityChanged();
         if (isVisitorIdentityChanged) {
-            return; // If true, means, already updated so don't need to go further
+            return; // If true, means, already updated (id + context + modifs && fetchNow=true) so don't need to go further
         }
 
         // STEP 2: if step 1 is falsy, then check bucketing
